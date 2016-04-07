@@ -1,0 +1,76 @@
+FuNeL - Functional Networks Learning co-prediction protocol.
+
+Copyright (C) 2014-2015  Nicola Lazzarini
+School of Computer Science, Newcastle University
+
+This program is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+more details: http://www.gnu.org/licenses/gpl.html
+
+
+DESCRIPTION
+-----------
+
+FuNeL is a protocol to infer functional networks from machine learning models.
+It is a general approach that uses BioHEL, a rule-based evolutionary classifier,
+to describe the expression samples as a set of rules and then infers interactions
+between genes that act together within rules to predict the samples class.
+
+FuNeL generates **co-prediction** networks, that capture biological knowledge
+complementary to that contained in popular similarity-based co-expression networks.
+
+
+REQUIREMENTS
+------------
+
+FuNeL is a set of scripts written in several programming/scripting languages
+and is able to run on GNU/Linux or MacOS systems.
+
+To run it requires the following software installed:
+
+* Weka - http://www.cs.waikato.ac.nz/ml/weka/ (GNU General Public Licence)
+* Python 2.7.x - https://www.python.org/ (Python Software Foundation Licence)
+* NumPy - http://www.numpy.org/ (BSD Licence)
+* GNU R - http://www.r-project.org/ (GNU General Public Licence)
+
+
+COMPILATION
+------------
+
+To run FuNeL, you need to compile BioHEL first. Its source code is distributed
+along with FuNeL scripts. Use the Makefile provided in BioHEL folder:
+
+	cd BioHEL
+	make
+
+
+CONFIGURATION
+--------------
+
+Inside coprediction.sh there are the following variables:
+
+* WEKA_PATH - path to the weka.jar file from the Weka programme
+* NUM_BIOHEL_RUNS - number of BioHEL runs
+* NUM_PERMUTATIONS - number of permuted datasets used for significance testing
+
+
+RUN
+----
+
+To perform co-prediction with FuNeL run the following script from the main directory:
+
+	./coprediction.sh <project_name> <dataset> <configuration> [<attributes>]
+
+* project name - name of the results directory
+* dataset - gene expression data in ARFF format
+* configuration - protocol variant (number from 1 to 4) used to generate the network
+* attributes - number of attributes to retain from feature selection (only for configurations 1 and 3)
+
+It will create the resulting `co-prediction_network.txt` and other intermediate
+files in the `results/<project_name>` directory.
